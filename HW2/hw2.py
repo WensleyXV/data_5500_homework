@@ -192,12 +192,14 @@ while treadmill == True:
     print(f"{j + 1}\t{pi}")
     if math.floor(pi * 100) / 100 == 3.14:
         place.append((j, pi))
-        pass
+        
     if math.floor(pi * 1000) / 1000 == 3.141:
         place2.append((j, pi))
     if i == 6001:
         treadmill = False
     i += 2
     j += 1
+
+    #so these print statements are ROUGH, but I'm pretty sure this is what y'all want
 print(place) #for 3.14
 print(place2) # for 3.141
