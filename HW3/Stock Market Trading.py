@@ -2,7 +2,7 @@ import csv
 #So I didn't move the file to excel to reverse it and remove other columns. I imported CSV to make a multi dimensional list of the data, so i could manipulate it for this assignment.
 
 
-file = open("/workspaces/data_5500_homework/HistoricalData_1790694863779.csv")
+file = open("/workspaces/data_5500_homework/HW3/HistoricalData_1790694863779.csv")
 
 data = list(csv.reader(file, delimiter=','))
 file.close
