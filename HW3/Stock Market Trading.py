@@ -30,10 +30,10 @@ sell = 0
 
 print("TSLA Mean Reversion Strategy Output: 9/29/25 - 9/28/26") #header for prints :)
 
-for i in range(4, len(data) - 1):
+for i in range(5, len(data) - 1):
     
 
-    five_day_moving_average = ((data[i][1] + data[i - 1][1] + data[i - 2][1] + data[i - 3][1] + data[i - 4][1]) / 5) #takes the average of the current value and the previous 4 values
+    five_day_moving_average = ((data[i-5][1] + data[i - 1][1] + data[i - 2][1] + data[i - 3][1] + data[i - 4][1]) / 5) #takes the average of the current value and the previous 4 values
     current_price = data[i][1]
     #print(current_price / five_day_moving_average)
 
