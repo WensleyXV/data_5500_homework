@@ -68,7 +68,7 @@ def stonks_standard_ma(prices): #Now I could totally use a single dimensional li
         current_price = prices[i][1]
         #print(current_price / five_day_moving_average)
 
-        if current_price / five_day_moving_average >= 1.02: #if the price is below 98% then "buy" will be updated to the current price
+        if current_price / five_day_moving_average > 1.00: #if the price is below 98% then "buy" will be updated to the current price
             if firstbuy == 0: #firstbuy will only be updated if this if the first buy thats happened
                 firstbuy = current_price
             if buy == 0: #will take the first buy value once the price gets low enough and will only get a new value once the stock has sold.
@@ -77,7 +77,7 @@ def stonks_standard_ma(prices): #Now I could totally use a single dimensional li
                 profit = 0 #allowing a sell if it can 
                 #print("Buying at:", current_price)
             
-        elif current_price / five_day_moving_average <= 0.98 and profit == 0:  #if the price is above 102% then profit will be updated to current price and there will be a running total added to as well
+        elif current_price / five_day_moving_average < 1 and profit == 0:  #if the price is above 102% then profit will be updated to current price and there will be a running total added to as well
             profit = round(current_price - buy,2)
             total_profit += profit
 
@@ -97,13 +97,13 @@ def save_results(results):
         json.dump(results, file, indent=4)
 
 
+results = {}
 
 """
-
 I like to call this next part the "Brute Force Area"
 
 """
-results = {}
+"""
 with open("/workspaces/data_5500_homework/HW4/apple_1yr.csv") as file:
     cfile = clean(file)
     results["apple_mr_p"], results["apple_mr_r"] = stonks_mean_reversion(cfile)
@@ -153,8 +153,20 @@ with open("/workspaces/data_5500_homework/HW4/tesla_1yr.csv") as file:
     cfile = clean(file)
     results["tesla_mr_p"], results["tesla_mr_r"] = stonks_mean_reversion(cfile)
     results["tesla_sma_p"], results["tesla_smar_r"] = stonks_standard_ma(cfile)
+"""
+
+
+tickers = ["apple", "amd", "amazon", "cisco", "meta", "microsoft", "netflix", "qualcomm", "starbucks", "tesla"]
+
+
+for ticker in tickers:
+    with open(f"/workspaces/data_5500_homework/HW4/{ticker}_1yr.csv") as file:
+        cfile = clean(file)
+        results[f"{ticker}_mr_profit"], results[f"{ticker}_mr_%return"] = stonks_mean_reversion(cfile)
+        results[f"{ticker}_sma_profit"], results[f"{ticker}_sma_%return"] = stonks_standard_ma(cfile)
+
 
 
 #saving dem results
 save_results(results)
-print(results)
+#print(results)
